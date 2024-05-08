@@ -1,10 +1,16 @@
 import express from "express";
 import { router } from "./routes/User.mjs";
+import fs from "fs";
+import https from "https";
 
 const app = express();
-app.use("/user", router);
 
-// Démarrage du serveur
-app.listen(8080, () => {
-  console.log("Server running on port 8080");
-});
+const options = {
+  key: fs.readFileSync("./ssl/server.key"),
+  cert: fs.readFileSync("./ssl/server.cert"),
+};
+
+https.createServer(options, app).listen(8080);
+
+app.use(express.json());
+app.use("/user", router);

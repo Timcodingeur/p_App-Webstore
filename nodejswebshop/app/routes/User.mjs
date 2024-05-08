@@ -1,6 +1,10 @@
 import express from "express";
-import { get } from "../controllers/UserController.mjs";
+import { getAll, post, getId } from "../controllers/UserController.mjs";
 
 const router = express();
-router.get("/", get);
+router.get("/", getAll);
+
+router.post("/", post);
+
+router.get("/:id", getId);
 export { router };
