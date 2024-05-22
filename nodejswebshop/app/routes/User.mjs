@@ -11,7 +11,7 @@ router.get("/", getAll);
 
 router.post("/", postUsr);
 
-router.get("/:id", getId);
+router.get("/:firstname", getId);
 
 router.post("/login", postCon);
 
