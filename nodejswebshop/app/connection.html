@@ -1,1 +1,63 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Client</title>
+</head>
+<body>
+  <h1>API Client</h1>
+  <div>
+    <h2>Get All Users</h2>
+    <button id="getAllUsersBtn">Get All Users</button>
+    <pre id="allUsers"></pre>
+  </div>
+  <div>
+    <h2>Get User By Firstname</h2>
+    <input type="text" id="firstnameInput" placeholder="Enter Firstname">
+    <button id="getUserBtn">Get User</button>
+    <pre id="userDetails"></pre>
+  </div>
+
+  <script>
+    const apiUrl = 'https://localhost:8080'; 
+
+
+    document.getElementById('getAllUsersBtn').addEventListener('click', () => {
+      fetch(`${apiUrl}/users`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiMzMyNjM0NjllODRjZmQ1ZWVmNjMzODVhMzQyMWVhOWIzZTg4MDI2YTdhMTRjZTEwMTk3MzI4ZGRlNGM0MTFkYiIsImlhdCI6MTcxNjk2NjU0OSwiZXhwIjoxNzE2OTcwMTQ5fQ.45IZhi3Kbw3bRHXiFz_YmEPBbCRP6WmljTw7iWEMhCo' 
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('allUsers').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+    });
+
+
+    document.getElementById('getUserBtn').addEventListener('click', () => {
+      const firstname = document.getElementById('firstnameInput').value;
+      fetch(`${apiUrl}/users/${firstname}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiMzMyNjM0NjllODRjZmQ1ZWVmNjMzODVhMzQyMWVhOWIzZTg4MDI2YTdhMTRjZTEwMTk3MzI4ZGRlNGM0MTFkYiIsImlhdCI6MTcxNjk2NjU0OSwiZXhwIjoxNzE2OTcwMTQ5fQ.45IZhi3Kbw3bRHXiFz_YmEPBbCRP6WmljTw7iWEMhCo' 
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('userDetails').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+    });
+  </script>
+</body>
+</html>
+
